@@ -7,7 +7,7 @@ build from https://github.com/PokemonGoF/PokemonGo-Bot
 >PathToYouConfigDirectory/web/userdata.js
 
 # Run
->docker run -d --name pokemongobot -p 8000:8000 -v PathToYouConfigDirectory:/config
+>docker run -d --name pokemongobot -p 8000:8000 -v PathToYouConfigDirectory:/config zercle/docker-pokemongo-bot
 
 # Fix catchable
 >docker exec pokemongobot touch /usr/src/app/web/catchable-UserName.json
