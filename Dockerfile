@@ -35,5 +35,6 @@ RUN apk del git build-base && \
 VOLUME ["/usr/src/app/web", "/config"]
 EXPOSE 8000
 
-CMD python -u pokecli.py && python -m SimpleHTTPServer 8000 &
-#ENTRYPOINT ["python", "-u", "pokecli.py", "-cf", "/config/config.json"]
+COPY entrypoint.sh /usr/src/app/entrypoint.sh
+
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
