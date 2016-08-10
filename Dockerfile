@@ -23,4 +23,6 @@ RUN apk add --no-cache git build-base python-dev py-virtualenv && \
 WORKDIR /config
 VOLUME ["/config"]
 EXPOSE 8000
+
+CMD python -m SimpleHTTPServer 8000 &
 ENTRYPOINT ["python", "-u", "pokecli.py"]
