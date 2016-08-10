@@ -15,11 +15,25 @@ RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
 RUN apk add --no-cache git build-base python-dev && \
 	git clone --recursive -b master https://github.com/PokemonGoF/PokemonGo-Bot.git /usr/src/app && \
 	cd /usr/src/app && \
-	pip install --no-cache-dir -r requirements.txt && \
-	apk del git build-base
+	pip install --no-cache-dir -r requirements.txt
 
-VOLUME ["/usr/src/app/web"]
+# Get the encryption.so and move to right folder
+RUN wget http://pgoapi.com/pgoencrypt.tar.gz && \
+	tar -xzvf pgoencrypt.tar.gz && \
+	cd pgoencrypt/src/ && \
+	make && \
+	cd /usr/src/app && \
+	mv pgoencrypt/src/libencrypt.so /usr/src/app/encrypt.so
+
+# Finalize
+RUN apk del git build-base && \
+	rm -rf /usr/src/app/configs && \
+	rm -rf /usr/src/app/web/config && \
+	ln -s /config /usr/src/app/configs && \
+	ln -s /config/web /usr/src/app/web/config
+
+VOLUME ["/usr/src/app/web", "/config"]
 EXPOSE 8000
 
-CMD python -m SimpleHTTPServer 8000 &
-ENTRYPOINT ["python", "-u", "pokecli.py"]
+CMD python -u pokecli.py && python -m SimpleHTTPServer 8000 &
+#ENTRYPOINT ["python", "-u", "pokecli.py", "-cf", "/config/config.json"]
