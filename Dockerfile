@@ -25,4 +25,4 @@ VOLUME ["/config"]
 EXPOSE 8000
 
 CMD python -m SimpleHTTPServer 8000 &
-ENTRYPOINT ["python", "-u", "pokecli.py"]
+ENTRYPOINT ["python", "-u", "/usr/src/app/pokecli.py"]
