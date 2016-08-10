@@ -18,7 +18,7 @@ RUN apk add --no-cache git build-base python-dev py-virtualenv && \
 	pip install --no-cache-dir -r requirements.txt && \
 	apk del git build-base && \
 	ln -s /usr/src/app/configs/ /config && \
-	ln -s /usr/src/app/web/config /config/web
+	ln -s /usr/src/app/web/config/ /config/web
 
 WORKDIR /config
 VOLUME ["/config"]
