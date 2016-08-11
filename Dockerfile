@@ -12,7 +12,8 @@ RUN mkdir -p /usr/src/app && mkdir -p /config/web
 RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
 
 # Get bot source and build
-RUN apk add --no-cache git build-base python-dev && \
+RUN export botver=3564 && \
+	apk add --no-cache git build-base python-dev && \
 	git clone --recursive -b master https://github.com/PokemonGoF/PokemonGo-Bot.git /usr/src/app && \
 	cd /usr/src/app && \
 	pip install --no-cache-dir -r requirements.txt
