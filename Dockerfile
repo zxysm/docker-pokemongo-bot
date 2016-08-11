@@ -32,10 +32,10 @@ RUN apk del git build-base && \
 	ln -s /config /usr/src/app/configs && \
 	ln -s /config/web /usr/src/app/web/config
 
-VOLUME ["/usr/src/app/web", "/config"]
-EXPOSE 8000
-
 COPY entrypoint.sh /usr/src/app/entrypoint.sh
 RUN chmod +x /usr/src/app/entrypoint.sh
+
+VOLUME ["/usr/src/app/web", "/config"]
+EXPOSE 8000
 
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
