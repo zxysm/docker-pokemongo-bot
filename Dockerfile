@@ -35,6 +35,6 @@ RUN apk del git build-base && \
 VOLUME ["/usr/src/app/web", "/config"]
 EXPOSE 8000
 
-COPY entrypoint.sh /usr/src/app/entrypoint.sh
+COPY entrypoint.sh /usr/src/app/entrypoint.sh && chmod +x /usr/src/app/entrypoint.sh
 
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
