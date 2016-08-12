@@ -12,14 +12,14 @@ RUN mkdir -p /usr/src/app && mkdir -p /config/web
 RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
 
 # Get bot source and build
-RUN export botver=3638 && \
+RUN export botver=3731 && \
 	apk add --no-cache git build-base python-dev && \
 	git clone --recursive -b master https://github.com/PokemonGoF/PokemonGo-Bot.git /usr/src/app && \
 	cd /usr/src/app && \
 	pip install --no-cache-dir -r requirements.txt
 
 # Get the encryption.so and move to right folder
-RUN export botver=3638 && \
+RUN export botver=3731 && \
 	wget http://pgoapi.com/pgoencrypt.tar.gz && \
 	tar -xzvf pgoencrypt.tar.gz && \
 	cd pgoencrypt/src/ && \
