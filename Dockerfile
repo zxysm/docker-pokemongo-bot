@@ -1,7 +1,6 @@
 FROM python:2.7-alpine
 
 WORKDIR /usr/src/app
-VOLUME ["/usr/app/configs", "/usr/src/app/web", "/config"]
 
 # Add build tools
 RUN apk add --no-cache git build-base
@@ -40,4 +39,5 @@ RUN chmod +x /usr/src/app/entrypoint.sh
 
 EXPOSE 8000
 
+VOLUME ["/usr/app/configs", "/usr/src/app/web", "/config"]
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
