@@ -1,6 +1,7 @@
 FROM python:2.7-alpine
 
 WORKDIR /usr/src/app
+VOLUME ["/usr/app/configs", "/usr/src/app/web", "/config"]
 
 # Add build tools
 RUN apk add --no-cache git build-base
@@ -19,7 +20,8 @@ RUN export botver=3638 && \
 	pip install --no-cache-dir -r requirements.txt
 
 # Get the encryption.so and move to right folder
-RUN wget http://pgoapi.com/pgoencrypt.tar.gz && \
+RUN export botver=3638 && \
+	wget http://pgoapi.com/pgoencrypt.tar.gz && \
 	tar -xzvf pgoencrypt.tar.gz && \
 	cd pgoencrypt/src/ && \
 	make && \
@@ -36,7 +38,6 @@ RUN apk del git build-base && \
 COPY entrypoint.sh /usr/src/app/entrypoint.sh
 RUN chmod +x /usr/src/app/entrypoint.sh
 
-VOLUME ["/usr/src/app/web", "/config"]
 EXPOSE 8000
 
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
