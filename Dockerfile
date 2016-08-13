@@ -3,7 +3,12 @@ FROM python:2.7-alpine
 WORKDIR /usr/src/app
 
 # Add build tools
-RUN apk add --no-cache git build-base
+RUN apk add --no-cache git build-base tzdata
+
+# Change timezone
+ARG timezone=Asia/Bangkok
+RUN echo $timezone > /etc/timezone && \
+	cp /usr/share/zoneinfo/$timezone /etc/localtime
 
 # Make source directory
 RUN mkdir -p /usr/src/app && mkdir -p /config/web
@@ -28,7 +33,7 @@ RUN export botver=3731 && \
 	mv pgoencrypt/src/libencrypt.so /usr/src/app/encrypt.so
 
 # Finalize
-RUN apk del git build-base && \
+RUN apk del git build-base tzdata && \
 	rm -rf /usr/src/app/configs && \
 	rm -rf /usr/src/app/web/config && \
 	ln -s /config /usr/src/app/configs && \
